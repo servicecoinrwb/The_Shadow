@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE SHADOW — WHO KNOWS WHAT EVIL LURKS IN THE HEARTS OF MEN?</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Special+Elite&family=Cinzel:wght@700;900&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson: #8B0000;
+    --blood: #4a0000;
+    --deepest: #000000;
+    --shadow: #0a0a0a;
+    --smoke: #1a1a1a;
+    --bone: #e8e0d0;
+    --pale: #b8b0a0;
+    --gold: #b8941f;
+    --gold-dim: #6b5512;
+    --gray: #555;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deepest);
+    color: var(--bone);
+    font-family: 'Special Elite', cursive;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    background: var(--deepest);
+    border-bottom: 3px solid var(--crimson);
+    padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 52px;
+    box-shadow: 0 4px 20px rgba(139,0,0,0.4);
+  }
+  .nav-logo {
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 30px;
+    color: var(--crimson);
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 0 var(--deepest), 0 0 20px rgba(139,0,0,0.6);
+  }
+  nav ul { list-style: none; display: flex; gap: 0; }
+  nav ul li a {
+    display: block;
+    padding: 0 16px;
+    height: 52px;
+    line-height: 52px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--pale);
+    text-decoration: none;
+    border-left: 1px solid rgba(139,0,0,0.3);
+    transition: background 0.2s, color 0.2s;
+  }
+  nav ul li a:hover { background: var(--crimson); color: var(--bone); }
+  .nav-badge {
+    background: var(--crimson);
+    color: var(--bone);
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+    border: 1px solid var(--gold);
+  }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    background: radial-gradient(ellipse at center, var(--blood) 0%, var(--deepest) 70%);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    padding-top: 52px;
+  }
+
+  /* Fog overlay */
+  .fog {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 600px 200px at 30% 80%, rgba(184,176,160,0.06), transparent),
+      radial-gradient(ellipse 700px 250px at 70% 60%, rgba(184,176,160,0.04), transparent),
+      radial-gradient(ellipse 500px 180px at 50% 90%, rgba(139,0,0,0.08), transparent);
+    pointer-events: none;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  @keyframes fogDrift {
+    from { transform: translateX(-30px); opacity: 0.7; }
+    to   { transform: translateX(30px); opacity: 1; }
+  }
+
+  /* Pulsing red glow behind title */
+  #hero::before {
+    content: '';
+    position: absolute;
+    width: 60%; height: 60%;
+    top: 20%; left: 20%;
+    background: radial-gradient(circle, rgba(139,0,0,0.25) 0%, transparent 60%);
+    animation: heartbeat 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes heartbeat {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.05); }
+  }
+
+  /* Shadow silhouette in corner */
+  .hero-shadow {
+    position: absolute;
+    top: 80px; right: 4%;
+    width: min(260px, 28vw);
+    opacity: 0.12;
+    animation: float 10s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
+
+  .hero-inner {
+    position: relative; z-index: 5;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  .hero-eyebrow {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 8px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-title {
+    font-family: 'UnifrakturCook', cursive;
+    font-size: clamp(80px, 16vw, 200px);
+    line-height: 0.95;
+    color: var(--bone);
+    text-shadow:
+      0 0 40px rgba(139,0,0,0.8),
+      4px 4px 0 var(--crimson),
+      8px 8px 30px rgba(0,0,0,0.9);
+    letter-spacing: 2px;
+    animation: fadeUp 1.2s 0.2s ease both;
+  }
+  .hero-laugh {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: clamp(20px, 3.5vw, 40px);
+    color: var(--crimson);
+    letter-spacing: 8px;
+    margin-top: 16px;
+    animation: fadeUp 0.8s 0.5s ease both, laughPulse 5s ease-in-out infinite 2s;
+    text-shadow: 2px 2px 0 var(--deepest);
+  }
+  @keyframes laughPulse {
+    0%, 90%, 100% { opacity: 1; }
+    93%, 96% { opacity: 0.3; }
+  }
+  .hero-divider {
+    width: 240px; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--crimson), var(--gold), var(--crimson), transparent);
+    margin: 28px auto;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+  .hero-quote {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: clamp(15px, 2vw, 19px);
+    color: var(--bone);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+    animation: fadeUp 0.8s 0.8s ease both;
+    letter-spacing: 1px;
+  }
+  .hero-quote-attr {
+    display: block;
+    margin-top: 12px;
+    font-family: 'Oswald', sans-serif;
+    font-style: normal;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+  .hero-since {
+    margin-top: 32px;
+    display: inline-block;
+    background: var(--deepest);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 16px;
+    letter-spacing: 6px;
+    padding: 10px 30px;
+    border: 2px solid var(--crimson);
+    box-shadow: 4px 4px 0 var(--crimson);
+    animation: fadeUp 0.8s 1s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── LAUGH TICKER ── */
+  .ticker-wrap {
+    background: var(--blood);
+    border-top: 3px solid var(--gold);
+    border-bottom: 3px solid var(--gold);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 12px 0;
+  }
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker 40s linear infinite;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 5px;
+    color: var(--bone);
+  }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── SECTIONS ── */
+  section { padding: 80px 0; }
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--crimson);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'UnifrakturCook', cursive;
+    font-size: clamp(50px, 8vw, 96px);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--shadow); }
+  #about .section-title {
+    color: var(--bone);
+    text-shadow: 4px 4px 0 var(--crimson);
+  }
+
+  .panels-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 3px solid var(--crimson);
+    margin-top: 40px;
+    box-shadow: 8px 8px 0 var(--blood);
+  }
+  .panel {
+    border: 1px solid rgba(139,0,0,0.3);
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    background: var(--shadow);
+    transition: all 0.3s;
+  }
+  .panel:hover {
+    background: var(--smoke);
+    border-color: var(--crimson);
+    z-index: 2;
+  }
+  .panel.wide { grid-column: span 2; }
+  .panel.tall { grid-row: span 2; }
+  .panel.crimson-bg { background: var(--crimson); color: var(--bone); }
+  .panel.bone-bg { background: var(--bone); color: var(--deepest); }
+  .panel.gold-bg { background: var(--gold); color: var(--deepest); }
+
+  .panel-num {
+    position: absolute; top: 8px; right: 12px;
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 16px;
+    opacity: 0.4;
+    color: var(--gold);
+  }
+  .panel.crimson-bg .panel-num { color: var(--bone); }
+  .panel.bone-bg .panel-num, .panel.gold-bg .panel-num { color: var(--deepest); }
+
+  .panel-caption {
+    background: var(--crimson);
+    color: var(--bone);
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 3px 10px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+  .panel.crimson-bg .panel-caption { background: var(--deepest); color: var(--gold); }
+  .panel.bone-bg .panel-caption, .panel.gold-bg .panel-caption { background: var(--deepest); color: var(--bone); }
+
+  .panel h3 {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 28px;
+    line-height: 1.05;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    color: var(--bone);
+  }
+  .panel.crimson-bg h3 { color: var(--bone); }
+  .panel.bone-bg h3, .panel.gold-bg h3 { color: var(--deepest); }
+  .panel p { font-size: 14px; line-height: 1.65; opacity: 0.88; }
+
+  .stat-big {
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 70px;
+    line-height: 1;
+    color: var(--crimson);
+    text-shadow: 3px 3px 0 var(--deepest);
+  }
+  .panel.crimson-bg .stat-big { color: var(--gold); text-shadow: 3px 3px 0 var(--deepest); }
+
+  .panel-icon { font-size: 48px; display: block; margin-bottom: 8px; line-height: 1; }
+
+  /* ── POWERS ── */
+  #powers {
+    background: var(--deepest);
+    position: relative;
+    overflow: hidden;
+    border-top: 3px solid var(--gold);
+    border-bottom: 3px solid var(--gold);
+  }
+  #powers::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 600px 200px at 20% 30%, rgba(139,0,0,0.15), transparent),
+      radial-gradient(ellipse 500px 200px at 80% 70%, rgba(139,0,0,0.12), transparent);
+    pointer-events: none;
+  }
+  #powers .container { position: relative; z-index: 2; }
+  #powers .section-title {
+    color: var(--crimson);
+    text-shadow: 4px 4px 0 var(--shadow), 0 0 20px rgba(139,0,0,0.4);
+  }
+
+  .powers-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 48px;
+    margin-top: 40px;
+    align-items: center;
+  }
+  .powers-art {
+    display: flex; flex-direction: column; align-items: center;
+    filter: drop-shadow(0 0 40px rgba(139,0,0,0.5));
+  }
+  .powers-label {
+    margin-top: 16px;
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 14px;
+    letter-spacing: 6px;
+    color: var(--gold);
+  }
+  .power-list { list-style: none; }
+  .power-list li {
+    border-bottom: 1px solid rgba(139,0,0,0.4);
+    padding: 16px 0;
+    display: flex; gap: 14px;
+    align-items: flex-start;
+  }
+  .power-list li:last-child { border-bottom: none; }
+  .power-icon { font-size: 24px; flex-shrink: 0; line-height: 1; }
+  .power-list h4 {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 19px;
+    letter-spacing: 1px;
+    color: var(--crimson);
+    margin-bottom: 3px;
+  }
+  .power-list p {
+    font-size: 13px;
+    line-height: 1.55;
+    color: rgba(232,224,208,0.75);
+  }
+
+  /* ── ROGUES ── */
+  #rogues { background: var(--shadow); position: relative; overflow: hidden; }
+  #rogues::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(139,0,0,0.06) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  #rogues .container { position: relative; z-index: 2; }
+  #rogues .section-title { color: var(--gold); text-shadow: 4px 4px 0 var(--crimson); }
+
+  .rogues-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0;
+    border: 3px solid var(--crimson);
+    margin-top: 40px;
+    box-shadow: 8px 8px 0 var(--blood);
+  }
+  .rogue-card {
+    border: 1px solid rgba(139,0,0,0.3);
+    padding: 24px 20px;
+    position: relative;
+    transition: all 0.3s;
+    overflow: hidden;
+    background: var(--shadow);
+  }
+  .rogue-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--crimson);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s ease;
+    z-index: 0;
+  }
+  .rogue-card:hover::before { transform: scaleY(1); }
+  .rogue-card * { position: relative; z-index: 1; }
+  .rogue-mug {
+    font-size: 44px; display: block;
+    margin-bottom: 10px; line-height: 1;
+    transition: transform 0.3s;
+  }
+  .rogue-card:hover .rogue-mug { transform: scale(1.2); }
+  .rogue-name {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 19px;
+    letter-spacing: 1px;
+    color: var(--bone);
+    text-shadow: 2px 2px 0 var(--deepest);
+  }
+  .rogue-alias {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gray);
+    margin-bottom: 8px;
+    margin-top: 2px;
+  }
+  .rogue-card:hover .rogue-alias { color: rgba(232,224,208,0.85); }
+  .rogue-rap {
+    font-size: 11px;
+    line-height: 1.55;
+    color: rgba(232,224,208,0.65);
+  }
+  .rogue-card:hover .rogue-rap { color: rgba(232,224,208,0.95); }
+  .rogue-threat { margin-top: 10px; display: flex; gap: 3px; }
+  .threat-pip {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    border: 1px solid rgba(184,148,31,0.5);
+  }
+  .threat-pip.on {
+    background: var(--gold);
+    border-color: var(--gold);
+    box-shadow: 0 0 5px var(--gold);
+  }
+  .rogue-card:hover .threat-pip.on { background: var(--bone); border-color: var(--bone); box-shadow: 0 0 8px var(--bone); }
+
+  /* ── AGENTS ── */
+  #agents {
+    background: var(--blood);
+    color: var(--bone);
+    position: relative;
+    overflow: hidden;
+  }
+  #agents::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(0,0,0,0.3) 1px, transparent 1px);
+    background-size: 12px 12px;
+    pointer-events: none;
+  }
+  #agents .section-title { color: var(--gold); text-shadow: 4px 4px 0 var(--deepest); }
+  #agents .section-label { color: rgba(232,224,208,0.7); }
+
+  .agents-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 3px solid var(--gold);
+    margin-top: 40px;
+    box-shadow: 8px 8px 0 var(--deepest);
+  }
+  .agent-card {
+    border: 1px solid rgba(184,148,31,0.3);
+    padding: 32px 28px;
+    background: var(--blood);
+    position: relative;
+  }
+  .agent-card:hover { background: rgba(0,0,0,0.3); }
+  .agent-initials {
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 70px;
+    line-height: 1;
+    color: rgba(184,148,31,0.15);
+    position: absolute;
+    top: 16px; right: 24px;
+    pointer-events: none;
+  }
+  .agent-role {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px; letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .agent-name {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 32px; line-height: 1;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    color: var(--bone);
+  }
+  .agent-bio { font-size: 13px; line-height: 1.65; opacity: 0.88; }
+
+  /* ── RADIO ── */
+  #radio {
+    background: var(--shadow);
+    color: var(--bone);
+    position: relative;
+    overflow: hidden;
+    border-top: 4px solid var(--crimson);
+    border-bottom: 4px solid var(--crimson);
+  }
+  #radio::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(184,148,31,0.04) 1px, transparent 1px);
+    background-size: 14px 14px;
+    pointer-events: none;
+  }
+  #radio .container { position: relative; z-index: 2; }
+  #radio .section-title { color: var(--bone); text-shadow: 4px 4px 0 var(--crimson); }
+
+  .radio-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 40px;
+    align-items: center;
+  }
+  .radio-art { display: flex; flex-direction: column; align-items: center; }
+  #radioPlayer { cursor: pointer; position: relative; }
+  #radioPlayer svg { filter: drop-shadow(10px 10px 0 var(--crimson)); }
+  #radioStatus {
+    margin-top: 16px;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    opacity: 0.8;
+  }
+  .on-air-card {
+    background: var(--deepest);
+    border: 3px solid var(--gold);
+    box-shadow: 6px 6px 0 var(--crimson);
+    padding: 20px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .on-air-tag {
+    position: absolute;
+    top: -12px; left: 16px;
+    background: var(--crimson);
+    color: var(--bone);
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 3px;
+    padding: 4px 12px;
+    border: 2px solid var(--gold);
+  }
+  .on-air-title {
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 28px;
+    color: var(--crimson);
+    letter-spacing: 1px;
+    margin-top: 8px;
+    text-shadow: 0 0 12px rgba(139,0,0,0.5);
+  }
+  #episodeTitle {
+    font-family: 'Oswald', sans-serif;
+    font-size: 13px;
+    color: var(--bone);
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    min-height: 18px;
+  }
+  #episodeDate {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px;
+    color: var(--gray);
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .on-air-quote {
+    font-family: 'Special Elite', cursive;
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(232,224,208,0.85);
+    font-style: italic;
+  }
+  .ep-picker-wrap {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(184,148,31,0.3);
+  }
+  .ep-picker-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .ep-picker-label {
+    font-family: 'Oswald', sans-serif;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gray);
+  }
+  #episodeCounter {
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: var(--gold);
+  }
+  #episodePicker {
+    width: 100%;
+    background: var(--deepest);
+    color: var(--gold);
+    border: 2px solid var(--crimson);
+    font-family: 'Special Elite', cursive;
+    font-size: 12px;
+    padding: 6px 8px;
+    cursor: pointer;
+  }
+  .radio-facts { list-style: none; }
+  .radio-facts li {
+    border-bottom: 1px dashed rgba(184,148,31,0.25);
+    padding: 12px 0;
+    display: flex; gap: 12px;
+    align-items: flex-start;
+  }
+  .radio-facts li:last-child { border-bottom: none; }
+  .radio-facts h4 {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--crimson);
+    margin-bottom: 2px;
+  }
+  .radio-facts p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(232,224,208,0.75);
+  }
+
+  /* ── TIMELINE ── */
+  #timeline { background: var(--deepest); position: relative; overflow: hidden; }
+  #timeline .section-title { color: var(--bone); text-shadow: 4px 4px 0 var(--crimson); }
+  .timeline-track { position: relative; margin-top: 60px; }
+  .timeline-track::before {
+    content: '';
+    position: absolute; left: 50%; top: 0; bottom: 0;
+    width: 3px;
+    background: repeating-linear-gradient(180deg, var(--crimson) 0, var(--crimson) 14px, transparent 14px, transparent 22px);
+    transform: translateX(-50%);
+  }
+  .t-entry {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    margin-bottom: 48px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .t-entry.visible { opacity: 1; transform: none; }
+  .t-entry:nth-child(odd)  .t-content { grid-column: 1; text-align: right; padding-right: 36px; }
+  .t-entry:nth-child(odd)  .t-dot     { grid-column: 2; }
+  .t-entry:nth-child(odd)  .t-empty   { grid-column: 3; }
+  .t-entry:nth-child(even) .t-content { grid-column: 3; padding-left: 36px; }
+  .t-entry:nth-child(even) .t-dot     { grid-column: 2; }
+  .t-entry:nth-child(even) .t-empty   { grid-column: 1; }
+  .t-dot { display: flex; align-items: flex-start; justify-content: center; padding-top: 4px; }
+  .t-dot-inner {
+    width: 18px; height: 18px;
+    background: var(--crimson);
+    border: 3px solid var(--deepest);
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px var(--gold), 0 0 12px var(--crimson);
+  }
+  .t-year {
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 38px;
+    color: var(--gold);
+    line-height: 1; margin-bottom: 4px;
+    text-shadow: 2px 2px 0 var(--deepest);
+  }
+  .t-desc {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 15px;
+    color: var(--bone);
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .t-detail { font-size: 12px; color: var(--pale); line-height: 1.55; opacity: 0.7; }
+
+  /* ── LEGACY ── */
+  #legacy { background: var(--shadow); color: var(--bone); }
+  #legacy .section-title { color: var(--crimson); text-shadow: 4px 4px 0 var(--bone); }
+  .legacy-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 3px solid var(--gold);
+    margin-top: 40px;
+    box-shadow: 8px 8px 0 var(--crimson);
+  }
+  .legacy-item {
+    border: 1px solid rgba(184,148,31,0.3);
+    padding: 26px 22px;
+    background: var(--shadow);
+    transition: all 0.3s;
+  }
+  .legacy-item:hover {
+    background: var(--crimson);
+    color: var(--bone);
+  }
+  .legacy-item:hover .legacy-year { color: var(--gold); }
+  .legacy-item:hover h4 { color: var(--bone); }
+  .legacy-icon { font-size: 32px; margin-bottom: 12px; }
+  .legacy-year {
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 26px;
+    color: var(--crimson);
+    margin-bottom: 4px;
+  }
+  .legacy-item h4 {
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: var(--bone);
+    margin-bottom: 8px;
+  }
+  .legacy-item p { font-size: 12px; line-height: 1.6; opacity: 0.85; }
+
+  /* ── QUOTE STRIP ── */
+  .quote-strip {
+    background: var(--deepest);
+    border-top: 4px solid var(--gold);
+    border-bottom: 4px solid var(--gold);
+    padding: 70px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .quote-strip::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(139,0,0,0.3), transparent 70%);
+    pointer-events: none;
+  }
+  .quote-strip blockquote {
+    position: relative;
+    font-family: 'UnifrakturCook', cursive;
+    font-size: clamp(28px, 5vw, 56px);
+    color: var(--bone);
+    letter-spacing: 2px;
+    line-height: 1.2;
+    max-width: 900px;
+    margin: 0 auto 20px;
+    text-shadow:
+      0 0 30px rgba(139,0,0,0.8),
+      4px 4px 0 var(--crimson);
+  }
+  .quote-strip cite {
+    position: relative;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--deepest);
+    border-top: 4px solid var(--crimson);
+    padding: 48px 24px;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'UnifrakturCook', cursive;
+    font-size: 60px;
+    color: var(--crimson);
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(139,0,0,0.6), 4px 4px 0 var(--deepest);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .footer-sub {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 12px; letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .footer-links { display: flex; justify-content: center; gap: 0; margin-bottom: 32px; flex-wrap: wrap; }
+  .footer-links a {
+    padding: 8px 18px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 11px; letter-spacing: 2px;
+    color: var(--bone);
+    text-decoration: none;
+    border: 1px solid rgba(139,0,0,0.4);
+    margin-left: -1px;
+    transition: background 0.2s;
+  }
+  .footer-links a:hover { background: var(--crimson); }
+  .footer-copy { font-size: 11px; color: var(--gray); letter-spacing: 1px; line-height: 1.6; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .panels-grid { grid-template-columns: 1fr; }
+    .panel.wide { grid-column: span 1; }
+    .rogues-grid { grid-template-columns: repeat(2, 1fr); }
+    .powers-layout, .agents-grid, .radio-layout { grid-template-columns: 1fr; }
+    .legacy-grid { grid-template-columns: 1fr 1fr; }
+    .timeline-track::before { left: 20px; }
+    .t-entry { grid-template-columns: 40px 1fr; }
+    .t-entry:nth-child(odd)  .t-content,
+    .t-entry:nth-child(even) .t-content { grid-column: 2; text-align: left; padding-left: 20px; padding-right: 0; }
+    .t-entry:nth-child(odd)  .t-dot,
+    .t-entry:nth-child(even) .t-dot     { grid-column: 1; grid-row: 1; }
+    .t-entry:nth-child(odd)  .t-empty,
+    .t-entry:nth-child(even) .t-empty   { display: none; }
+  }
+  @media (max-width: 480px) {
+    .legacy-grid { grid-template-columns: 1fr; }
+    .rogues-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">The Shadow</div>
+  <ul>
+    <li><a href="#about">ORIGIN</a></li>
+    <li><a href="#powers">POWERS</a></li>
+    <li><a href="#rogues">FOES</a></li>
+    <li><a href="#agents">AGENTS</a></li>
+    <li><a href="#radio">RADIO</a></li>
+    <li><a href="#timeline">HISTORY</a></li>
+    <li><a href="#legacy">LEGACY</a></li>
+  </ul>
+  <div class="nav-badge">EST. 1930</div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="fog"></div>
+
+  <!-- Shadow silhouette: cloaked figure with slouch hat -->
+  <svg class="hero-shadow" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+    <!-- Hat brim -->
+    <ellipse cx="100" cy="55" rx="75" ry="14"/>
+    <!-- Hat crown -->
+    <path d="M 50 55 Q 50 15 100 12 Q 150 15 150 55 Z"/>
+    <!-- Face shadow (dark) -->
+    <path d="M 65 60 Q 65 85 80 95 L 120 95 Q 135 85 135 60 Z" fill="black" opacity="0.6"/>
+    <!-- Cloak body -->
+    <path d="M 60 90 Q 50 110 45 150 L 30 280 L 170 280 L 155 150 Q 150 110 140 90 Z"/>
+    <!-- Cloak collar -->
+    <path d="M 80 95 L 70 130 L 90 140 L 100 110 L 110 140 L 130 130 L 120 95 Z" fill="black" opacity="0.5"/>
+  </svg>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Who Knows What Evil Lurks</div>
+    <div class="hero-title">The Shadow</div>
+    <div class="hero-laugh">HEH HEH HEH HEH HEH...</div>
+    <div class="hero-divider"></div>
+    <p class="hero-quote">
+      "Who knows what evil lurks in the hearts of men? The Shadow knows!"
+      <span class="hero-quote-attr">— THE OPENING OF EVERY BROADCAST, 1937–1954</span>
+    </p>
+    <div class="hero-since">SINCE JULY 31, 1930</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    ✦ THE WEED OF CRIME BEARS BITTER FRUIT ✦ EVIL LURKS IN THE HEARTS OF MEN — THE SHADOW KNOWS ✦ WEALTHY YOUNG MAN ABOUT TOWN LAMONT CRANSTON SEEN AT THE CLUB CADILLAC ✦ POLICE COMMISSIONER WEAVER BAFFLED BY MYSTERIOUS LAUGH ✦ ORSON WELLES TAKES THE MIC ✦ THE INVISIBLE AVENGER STRIKES AGAIN ✦ MARGOT LANE — THE ONLY ONE WHO KNOWS ✦ STREET & SMITH PUBLISHES ISSUE NO. 325 ✦ THE WEED OF CRIME BEARS BITTER FRUIT ✦ EVIL LURKS IN THE HEARTS OF MEN — THE SHADOW KNOWS ✦ WEALTHY YOUNG MAN ABOUT TOWN LAMONT CRANSTON SEEN AT THE CLUB CADILLAC ✦ POLICE COMMISSIONER WEAVER BAFFLED BY MYSTERIOUS LAUGH ✦ ORSON WELLES TAKES THE MIC ✦ THE INVISIBLE AVENGER STRIKES AGAIN ✦ MARGOT LANE — THE ONLY ONE WHO KNOWS ✦&nbsp;&nbsp;
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">Chapter 01</div>
+    <div class="section-title">A Voice From<br>The Darkness</div>
+
+    <div class="panels-grid">
+
+      <div class="panel crimson-bg">
+        <span class="panel-num">I</span>
+        <div class="panel-caption">CREATOR</div>
+        <span class="panel-icon">🖋</span>
+        <h3>Walter B. Gibson</h3>
+        <p>Pulp writer and stage magician Walter B. Gibson, writing as "Maxwell Grant," authored 282 Shadow novels for Street & Smith between 1931 and 1949 — over 1.5 million words a year at peak. He defined the character that the radio show would later inherit.</p>
+      </div>
+
+      <div class="panel wide">
+        <span class="panel-num">II</span>
+        <div class="panel-caption">THE BEGINNING</div>
+        <h3>Born of a Radio Narrator</h3>
+        <p style="margin-bottom:12px">The Shadow began as nothing more than a sinister-voiced narrator on the Detective Story Hour in 1930. Listeners became obsessed with the unnamed announcer who introduced each tale with a chilling laugh. Within a year, Street & Smith built a pulp magazine around him — and a legend was born.</p>
+        <p style="font-size:12px;color:var(--gold);letter-spacing:2px;font-family:'Oswald',sans-serif">◆ FIRST PULP: APRIL 1, 1931 · "THE LIVING SHADOW" ◆</p>
+      </div>
+
+      <div class="panel tall">
+        <span class="panel-num">III</span>
+        <div class="panel-caption">THE MAN</div>
+        <h3>Lamont Cranston</h3>
+        <p style="margin-bottom:16px">Wealthy young man about town — a millionaire playboy and amateur detective. By night, he becomes The Shadow: cloaked, hat-shrouded, armed with two .45 automatics and the power to cloud men's minds so they cannot see him.</p>
+        <div style="border-top:1px solid rgba(184,148,31,0.3);padding-top:16px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+            <div>
+              <div style="font-family:'UnifrakturCook',cursive;font-size:24px;color:var(--crimson)">1930</div>
+              <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:var(--gray)">RADIO DEBUT</div>
+            </div>
+            <div>
+              <div style="font-family:'UnifrakturCook',cursive;font-size:24px;color:var(--crimson)">282</div>
+              <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:var(--gray)">PULP NOVELS</div>
+            </div>
+            <div>
+              <div style="font-family:'UnifrakturCook',cursive;font-size:24px;color:var(--crimson)">24</div>
+              <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:var(--gray)">YEARS ON AIR</div>
+            </div>
+            <div>
+              <div style="font-family:'UnifrakturCook',cursive;font-size:24px;color:var(--crimson)">1.5M</div>
+              <div style="font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:2px;color:var(--gray)">WORDS/YEAR</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel gold-bg">
+        <span class="panel-num">IV</span>
+        <div class="panel-caption">THE VOICE</div>
+        <h3>Orson Welles</h3>
+        <p>From 1937 to 1938, a 22-year-old Orson Welles voiced Lamont Cranston — three years before Citizen Kane. His commanding baritone defined the role and helped make The Shadow one of the most-listened-to shows in America.</p>
+      </div>
+
+      <div class="panel bone-bg">
+        <span class="panel-num">V</span>
+        <div class="panel-caption">THE MOTTO</div>
+        <div class="stat-big" style="color:var(--crimson)">"</div>
+        <h3 style="font-size:18px;margin-top:4px;color:var(--deepest)">The weed of crime bears bitter fruit.</h3>
+        <p style="color:var(--blood);font-style:italic">Crime does not pay. The Shadow knows.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- POWERS -->
+<section id="powers">
+  <div class="container">
+    <div class="section-label">Chapter 02</div>
+    <div class="section-title">Powers of<br>the Night</div>
+
+    <div class="powers-layout">
+      <div class="powers-art">
+        <!-- The Shadow's emblem: cloaked figure inside a circle, twin .45s -->
+        <svg width="320" height="380" viewBox="0 0 320 380" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <radialGradient id="shadowGlow" cx="0.5" cy="0.4" r="0.7">
+              <stop offset="0%" stop-color="#8B0000" stop-opacity="0.6"/>
+              <stop offset="60%" stop-color="#4a0000" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="redGlow">
+              <feGaussianBlur stdDeviation="6"/>
+              <feMerge>
+                <feMergeNode/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Outer ring -->
+          <circle cx="160" cy="190" r="150" fill="url(#shadowGlow)"/>
+          <circle cx="160" cy="190" r="148" fill="none" stroke="#b8941f" stroke-width="3"/>
+          <circle cx="160" cy="190" r="140" fill="none" stroke="#b8941f" stroke-width="1" opacity="0.6"/>
+
+          <!-- Inner background -->
+          <circle cx="160" cy="190" r="135" fill="#000"/>
+
+          <!-- Cloaked figure silhouette -->
+          <!-- Hat brim -->
+          <ellipse cx="160" cy="110" rx="62" ry="10" fill="#0a0a0a"/>
+          <!-- Hat crown -->
+          <path d="M 122 110 Q 122 78 160 75 Q 198 78 198 110 Z" fill="#0a0a0a"/>
+          <!-- Hat band -->
+          <ellipse cx="160" cy="108" rx="40" ry="4" fill="#000"/>
+
+          <!-- Face - shadowed completely -->
+          <path d="M 132 115 Q 132 145 145 158 L 175 158 Q 188 145 188 115 Z" fill="#000"/>
+
+          <!-- Glowing red eyes -->
+          <ellipse cx="148" cy="128" rx="3.5" ry="2" fill="#ff2020" filter="url(#redGlow)"/>
+          <ellipse cx="172" cy="128" rx="3.5" ry="2" fill="#ff2020" filter="url(#redGlow)"/>
+
+          <!-- Cloak body -->
+          <path d="M 120 158 Q 100 175 92 210 L 80 290 L 240 290 L 228 210 Q 220 175 200 158 Z" fill="#0a0a0a"/>
+
+          <!-- Cloak inner shadow lines -->
+          <path d="M 145 165 L 130 210 L 145 240" stroke="#1a0000" stroke-width="2" fill="none"/>
+          <path d="M 175 165 L 190 210 L 175 240" stroke="#1a0000" stroke-width="2" fill="none"/>
+
+          <!-- Twin .45 automatics emerging from cloak -->
+          <!-- Left gun -->
+          <g transform="translate(108, 200) rotate(-20)">
+            <rect x="-22" y="-3" width="36" height="8" fill="#2a2a2a" stroke="#444" stroke-width="0.5"/>
+            <rect x="-26" y="-5" width="8" height="12" fill="#1a1a1a"/>
+            <circle cx="-22" cy="1" r="2" fill="#b8941f"/>
+            <rect x="-4" y="-7" width="3" height="4" fill="#1a1a1a"/>
+          </g>
+
+          <!-- Right gun -->
+          <g transform="translate(212, 200) rotate(20)">
+            <rect x="-14" y="-3" width="36" height="8" fill="#2a2a2a" stroke="#444" stroke-width="0.5"/>
+            <rect x="18" y="-5" width="8" height="12" fill="#1a1a1a"/>
+            <circle cx="22" cy="1" r="2" fill="#b8941f"/>
+            <rect x="1" y="-7" width="3" height="4" fill="#1a1a1a"/>
+          </g>
+
+          <!-- Cloak collar / scarf -->
+          <path d="M 145 158 L 130 175 L 155 178 L 160 162 L 165 178 L 190 175 L 175 158 Z" fill="#1a0000"/>
+
+          <!-- Banner curve below -->
+          <path d="M 60 320 Q 160 340 260 320 L 260 350 Q 160 370 60 350 Z" fill="#8B0000" stroke="#b8941f" stroke-width="2"/>
+          <text x="160" y="343" font-family="UnifrakturCook, cursive" font-size="18" fill="#e8e0d0" text-anchor="middle" letter-spacing="2">The Shadow Knows</text>
+
+          <!-- Top text -->
+          <text x="160" y="40" font-family="Cinzel, serif" font-weight="900" font-style="italic" font-size="14" fill="#b8941f" text-anchor="middle" letter-spacing="6">WHO KNOWS</text>
+          <text x="160" y="58" font-family="Cinzel, serif" font-weight="900" font-style="italic" font-size="14" fill="#b8941f" text-anchor="middle" letter-spacing="4">WHAT EVIL LURKS</text>
+        </svg>
+        <div class="powers-label">◆ THE INVISIBLE AVENGER ◆</div>
+      </div>
+
+      <ul class="power-list">
+        <li>
+          <span class="power-icon">👁</span>
+          <div>
+            <h4>The Power to Cloud Men's Minds</h4>
+            <p>His most legendary ability — a hypnotic power learned in the Orient that makes him invisible to all but himself. Criminals know him only as a mocking voice and a shadow on the wall.</p>
+          </div>
+        </li>
+        <li>
+          <span class="power-icon">😈</span>
+          <div>
+            <h4>The Haunting Laugh</h4>
+            <p>"Heh heh heh heh..." — the chilling, drawn-out laugh that signaled criminals their reckoning had arrived. One of the most iconic sounds in radio history.</p>
+          </div>
+        </li>
+        <li>
+          <span class="power-icon">🔫</span>
+          <div>
+            <h4>Twin .45 Automatics</h4>
+            <p>In the pulp novels, The Shadow was a deadly marksman wielding twin Colt M1911s under his cloak. The radio show toned this down, but the guns remained part of the iconography.</p>
+          </div>
+        </li>
+        <li>
+          <span class="power-icon">🌏</span>
+          <div>
+            <h4>Years in the Orient</h4>
+            <p>His mind-clouding powers were learned during years spent in Tibet and the Far East — a classic pulp-era origin that gave him an aura of mystery and supernatural knowledge.</p>
+          </div>
+        </li>
+        <li>
+          <span class="power-icon">🕴</span>
+          <div>
+            <h4>Master of Disguise</h4>
+            <p>Beyond Lamont Cranston, The Shadow maintained other identities — including Kent Allard, considered by some to be his true name. He could become anyone, anywhere.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ROGUES -->
+<section id="rogues">
+  <div class="container">
+    <div class="section-label">Chapter 03</div>
+    <div class="section-title">Evil in the<br>Hearts of Men</div>
+
+    <div class="rogues-grid">
+
+      <div class="rogue-card">
+        <span class="rogue-mug">🎭</span>
+        <div class="rogue-name">SHIWAN KHAN</div>
+        <div class="rogue-alias">ALIAS: THE GOLDEN MASTER</div>
+        <p class="rogue-rap">The Shadow's true arch-enemy. A descendant of Genghis Khan who learned the same mind-clouding powers in the Orient. The only foe who could truly match The Shadow's abilities.</p>
+        <div class="rogue-threat">
+          <div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip on"></div>
+        </div>
+      </div>
+
+      <div class="rogue-card">
+        <span class="rogue-mug">🔮</span>
+        <div class="rogue-name">VOODOO MASTER</div>
+        <div class="rogue-alias">ALIAS: DR. RODIL MOCQUINO</div>
+        <p class="rogue-rap">Haitian-born hypnotist and dark magician whose powers rivaled The Shadow's own. Specialized in zombification, hypnotic murder, and ritualistic crimes.</p>
+        <div class="rogue-threat">
+          <div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip"></div>
+        </div>
+      </div>
+
+      <div class="rogue-card">
+        <span class="rogue-mug">👤</span>
+        <div class="rogue-name">THE PRINCE OF EVIL</div>
+        <div class="rogue-alias">ALIAS: BENEDICT STARK</div>
+        <p class="rogue-rap">A criminal genius and "evil opposite" of The Shadow — equally wealthy, equally brilliant, dedicated entirely to corruption and chaos. A philosophical mirror.</p>
+        <div class="rogue-threat">
+          <div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip"></div>
+        </div>
+      </div>
+
+      <div class="rogue-card">
+        <span class="rogue-mug">💀</span>
+        <div class="rogue-name">THE CONDOR</div>
+        <div class="rogue-alias">ALIAS: TYLER LEWIS</div>
+        <p class="rogue-rap">A master criminal who orchestrated international gold-smuggling rings and assassination plots. Returned multiple times across the pulp run as one of The Shadow's persistent foes.</p>
+        <div class="rogue-threat">
+          <div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip"></div>
+        </div>
+      </div>
+
+      <div class="rogue-card">
+        <span class="rogue-mug">🦅</span>
+        <div class="rogue-name">THE HAND</div>
+        <div class="rogue-alias">ALIAS: SYNDICATE OF FIVE</div>
+        <p class="rogue-rap">A criminal council of five master crooks who joined forces to destroy The Shadow. Each had a specialty — gambling, narcotics, racketeering, kidnapping, and murder.</p>
+        <div class="rogue-threat">
+          <div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip"></div>
+        </div>
+      </div>
+
+      <div class="rogue-card">
+        <span class="rogue-mug">⚗️</span>
+        <div class="rogue-name">DR. ROY TAM</div>
+        <div class="rogue-alias">ALIAS: THE BLACK FALCON</div>
+        <p class="rogue-rap">A mad scientist working with various criminal cartels, developing poisons and weapons. A recurring villain spanning multiple novels across the pulp run.</p>
+        <div class="rogue-threat">
+          <div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip on"></div><div class="threat-pip"></div><div class="threat-pip"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="margin-top:24px;font-size:12px;color:var(--gray);letter-spacing:2px;font-family:'Oswald',sans-serif">◆ NONE ESCAPED THE SHADOW'S JUSTICE ◆ THE WEED OF CRIME BEARS BITTER FRUIT ◆</p>
+  </div>
+</section>
+
+<!-- AGENTS -->
+<section id="agents">
+  <div class="container">
+    <div class="section-label">Chapter 04</div>
+    <div class="section-title">Agents of<br>The Shadow</div>
+
+    <div class="agents-grid">
+      <div class="agent-card">
+        <div class="agent-initials">ML</div>
+        <div class="agent-role">CONFIDANTE · COMPANION</div>
+        <div class="agent-name">Margot Lane</div>
+        <p class="agent-bio">Created for the radio show in 1937, Margot Lane became the only person who knew Lamont Cranston's secret. Her role gave the show a confidant character, romantic tension, and someone Cranston could explain his plans to — solving the radio writer's eternal problem of internal monologue. Voiced first by Agnes Moorehead, she became one of the show's most enduring elements.</p>
+      </div>
+      <div class="agent-card">
+        <div class="agent-initials">HV</div>
+        <div class="agent-role">CHAUFFEUR · OPERATIVE</div>
+        <div class="agent-name">Moe Shrevnitz</div>
+        <p class="agent-bio">"Shrevvy" — the wisecracking taxi driver from the pulps who served as one of The Shadow's loyal agents. Always nearby in his cab, ready to spirit Cranston or his agents through New York's streets at a moment's notice. Part of a network of operatives including Harry Vincent, Cliff Marsland, Burbank, and Clyde Burke — the Shadow's eyes and ears across the city.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RADIO -->
+<section id="radio">
+  <div class="container">
+    <div class="section-label">Chapter 05</div>
+    <div class="section-title">On the<br>Airwaves</div>
+
+    <div class="radio-layout">
+
+      <div class="radio-art">
+        <div id="radioPlayer">
+          <svg width="320" height="340" viewBox="0 0 320 340" xmlns="http://www.w3.org/2000/svg">
+            <!-- Black cabinet with crimson trim -->
+            <path d="M30 60 Q30 30 60 30 L260 30 Q290 30 290 60 L290 310 Q290 320 280 320 L40 320 Q30 320 30 310 Z" fill="#0a0a0a" stroke="#8B0000" stroke-width="4"/>
+            <path d="M40 80 L280 80 M40 110 L280 110 M40 300 L280 300" stroke="#1a0000" stroke-width="1" opacity="0.8"/>
+            <path d="M60 50 Q160 35 260 50" stroke="#b8941f" stroke-width="2" fill="none" opacity="0.6"/>
+
+            <!-- Speaker grille -->
+            <rect x="60" y="90" width="200" height="110" rx="8" fill="#000" stroke="#b8941f" stroke-width="3"/>
+            <g id="speakerLines" stroke="#b8941f" stroke-width="2" opacity="0.6">
+              <line x1="70" y1="105" x2="250" y2="105"/>
+              <line x1="70" y1="120" x2="250" y2="120"/>
+              <line x1="70" y1="135" x2="250" y2="135"/>
+              <line x1="70" y1="150" x2="250" y2="150"/>
+              <line x1="70" y1="165" x2="250" y2="165"/>
+              <line x1="70" y1="180" x2="250" y2="180"/>
+            </g>
+
+            <!-- Shadow emblem in center: hat + eyes -->
+            <circle cx="160" cy="145" r="22" fill="#0a0a0a" stroke="#8B0000" stroke-width="2"/>
+            <ellipse cx="160" cy="138" rx="14" ry="3" fill="#000"/>
+            <path d="M 149 138 Q 149 130 160 128 Q 171 130 171 138 Z" fill="#000"/>
+            <ellipse cx="156" cy="147" rx="1.5" ry="1" fill="#ff2020"/>
+            <ellipse cx="164" cy="147" rx="1.5" ry="1" fill="#ff2020"/>
+
+            <!-- Tuning dial -->
+            <rect x="70" y="215" width="180" height="40" rx="4" fill="#000" stroke="#b8941f" stroke-width="2"/>
+            <text x="85" y="232" font-family="Courier New" font-size="9" fill="#8B0000">540</text>
+            <text x="120" y="232" font-family="Courier New" font-size="9" fill="#8B0000">800</text>
+            <text x="155" y="232" font-family="Courier New" font-size="9" fill="#8B0000">1000</text>
+            <text x="195" y="232" font-family="Courier New" font-size="9" fill="#8B0000">1200</text>
+            <text x="230" y="232" font-family="Courier New" font-size="9" fill="#8B0000">1600</text>
+
+            <line id="tuneNeedle" x1="80" y1="238" x2="80" y2="252" stroke="#ff2020" stroke-width="2"/>
+
+            <!-- PLAY knob -->
+            <g id="playKnob">
+              <circle cx="90" cy="285" r="18" fill="#000" stroke="#b8941f" stroke-width="3"/>
+              <circle cx="90" cy="285" r="3" fill="#b8941f"/>
+              <line x1="90" y1="270" x2="90" y2="278" stroke="#b8941f" stroke-width="2"/>
+              <text x="90" y="315" font-family="Cinzel, serif" font-weight="700" font-size="8" fill="#b8941f" text-anchor="middle" letter-spacing="1">PLAY</text>
+            </g>
+
+            <!-- NEXT knob -->
+            <g id="tuneKnob" style="cursor:pointer">
+              <circle cx="160" cy="285" r="18" fill="#000" stroke="#b8941f" stroke-width="3"/>
+              <circle cx="160" cy="285" r="3" fill="#b8941f"/>
+              <line x1="160" y1="280" x2="167" y2="273" stroke="#b8941f" stroke-width="2"/>
+              <text x="160" y="315" font-family="Cinzel, serif" font-weight="700" font-size="8" fill="#b8941f" text-anchor="middle" letter-spacing="1">NEXT</text>
+            </g>
+
+            <!-- PREV knob -->
+            <g id="bandKnob" style="cursor:pointer">
+              <circle cx="230" cy="285" r="18" fill="#000" stroke="#b8941f" stroke-width="3"/>
+              <circle cx="230" cy="285" r="3" fill="#b8941f"/>
+              <line x1="230" y1="280" x2="223" y2="273" stroke="#b8941f" stroke-width="2"/>
+              <text x="230" y="315" font-family="Cinzel, serif" font-weight="700" font-size="8" fill="#b8941f" text-anchor="middle" letter-spacing="1">PREV</text>
+            </g>
+
+            <!-- Crimson glow when broadcasting -->
+            <circle id="onAirGlow" cx="160" cy="145" r="22" fill="none" stroke="#8B0000" stroke-width="3" opacity="0"/>
+          </svg>
+          <audio id="dtAudio" preload="none"></audio>
+        </div>
+        <div id="radioStatus">◆ TUNE IN TO THE SHADOW ◆</div>
+      </div>
+
+      <div>
+        <div class="on-air-card">
+          <div class="on-air-tag">● ON AIR</div>
+          <div class="on-air-title">The Shadow</div>
+          <div id="episodeTitle">EP 00 · TUNE IN</div>
+          <div id="episodeDate">MUTUAL BROADCASTING SYSTEM</div>
+          <div class="on-air-quote">
+            "Who knows what evil lurks in the hearts of men? The Shadow knows..."
+          </div>
+          <div class="ep-picker-wrap">
+            <div class="ep-picker-row">
+              <span class="ep-picker-label">EPISODE SELECT</span>
+              <span id="episodeCounter">00 / 00</span>
+            </div>
+            <select id="episodePicker"></select>
+          </div>
+        </div>
+
+        <ul class="radio-facts">
+          <li>
+            <span style="font-size:22px;flex-shrink:0">📻</span>
+            <div>
+              <h4>Premiered July 31, 1930</h4>
+              <p>The Shadow first appeared as the narrator of CBS's Detective Story Hour. The character was so popular that listeners demanded a magazine — and then his own show. The dedicated series ran from 1937 to 1954.</p>
+            </div>
+          </li>
+          <li>
+            <span style="font-size:22px;flex-shrink:0">🎙</span>
+            <div>
+              <h4>Orson Welles · 1937–1938</h4>
+              <p>A 22-year-old Orson Welles voiced Lamont Cranston for the first season — three years before Citizen Kane made him a legend. Bret Morrison, Bill Johnstone, and others followed.</p>
+            </div>
+          </li>
+          <li>
+            <span style="font-size:22px;flex-shrink:0">💃</span>
+            <div>
+              <h4>Agnes Moorehead as Margot</h4>
+              <p>Agnes Moorehead — later of Citizen Kane and Bewitched — originated the role of Margot Lane. She and Welles had palpable chemistry on the air.</p>
+            </div>
+          </li>
+          <li>
+            <span style="font-size:22px;flex-shrink:0">🥤</span>
+            <div>
+              <h4>Sponsored by Blue Coal</h4>
+              <p>For most of its run, The Shadow was sponsored by Blue Coal — the D.L. & W. Coal Company. Every episode opened with their announcer pitching coal heating before the Shadow's laugh kicked in.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-strip">
+  <blockquote>"The Weed of Crime Bears Bitter Fruit"</blockquote>
+  <cite>— THE CLOSING WORDS OF EVERY EPISODE · 1937–1954</cite>
+</div>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="container">
+    <div class="section-label">Chapter 06</div>
+    <div class="section-title">Decades in<br>the Darkness</div>
+
+    <div class="timeline-track" id="timelineTrack">
+
+      <div class="t-entry">
+        <div class="t-content">
+          <div class="t-year">1930</div>
+          <div class="t-desc">The Voice in the Dark</div>
+          <div class="t-detail">The Shadow debuts as the unnamed narrator of CBS's Detective Story Hour on July 31. The character has no story of his own — just a chilling laugh and a sinister voice — and listeners cannot stop talking about him.</div>
+        </div>
+        <div class="t-dot"><div class="t-dot-inner"></div></div>
+        <div class="t-empty"></div>
+      </div>
+
+      <div class="t-entry">
+        <div class="t-content">
+          <div class="t-year">1931</div>
+          <div class="t-desc">The Pulp Magazine</div>
+          <div class="t-detail">Street & Smith publishes "The Shadow, A Detective Magazine" on April 1, 1931. Walter B. Gibson writes the first novel — "The Living Shadow" — under the pen name Maxwell Grant. The character finally has his own story.</div>
+        </div>
+        <div class="t-dot"><div class="t-dot-inner"></div></div>
+        <div class="t-empty"></div>
+      </div>
+
+      <div class="t-entry">
+        <div class="t-content">
+          <div class="t-year">1937</div>
+          <div class="t-desc">Orson Welles Takes the Mic</div>
+          <div class="t-detail">The Shadow gets his own dedicated radio program on Mutual. A 22-year-old Orson Welles voices Lamont Cranston — his Mercury Theatre days still ahead. Agnes Moorehead plays Margot Lane, a character invented for radio.</div>
+        </div>
+        <div class="t-dot"><div class="t-dot-inner"></div></div>
+        <div class="t-empty"></div>
+      </div>
+
+      <div class="t-entry">
+        <div class="t-content">
+          <div class="t-year">1940</div>
+          <div class="t-desc">Bill Johnstone Takes Over</div>
+          <div class="t-detail">Welles leaves The Shadow for bigger projects (including War of the Worlds). Bill Johnstone steps in as Cranston, followed by Bret Morrison who would become the longest-running voice of the character.</div>
+        </div>
+        <div class="t-dot"><div class="t-dot-inner"></div></div>
+        <div class="t-empty"></div>
+      </div>
+
+      <div class="t-entry">
+        <div class="t-content">
+          <div class="t-year">1949</div>
+          <div class="t-desc">The Pulp Era Ends</div>
+          <div class="t-detail">After 282 novels and 18 years of monthly publication, Walter B. Gibson writes his final Shadow pulp. The magazine ceases publication in 1949 — a casualty of changing tastes and the rise of comic books.</div>
+        </div>
+        <div class="t-dot"><div class="t-dot-inner"></div></div>
+        <div class="t-empty"></div>
+      </div>
+
+      <div class="t-entry">
+        <div class="t-content">
+          <div class="t-year">1954</div>
+          <div class="t-desc">The Final Broadcast</div>
+          <div class="t-detail">On December 26, 1954, The Shadow's radio show airs its final episode after 17 years on the air (plus 7 years before that as narrator). Bret Morrison gives the final mocking laugh. The weed of crime stops bearing bitter fruit.</div>
+        </div>
+        <div class="t-dot"><div class="t-dot-inner"></div></div>
+        <div class="t-empty"></div>
+      </div>
+
+      <div class="t-entry">
+        <div class="t-content">
+          <div class="t-year">1994</div>
+          <div class="t-desc">The Alec Baldwin Film</div>
+          <div class="t-detail">Director Russell Mulcahy brings The Shadow to the big screen with Alec Baldwin as Lamont Cranston. Modest commercial success but a cult favorite — particularly for its art deco visuals and faithful pulp atmosphere.</div>
+        </div>
+        <div class="t-dot"><div class="t-dot-inner"></div></div>
+        <div class="t-empty"></div>
+      </div>
+
+      <div class="t-entry">
+        <div class="t-content">
+          <div class="t-year">TODAY</div>
+          <div class="t-desc">Father of the Modern Superhero</div>
+          <div class="t-detail">Bob Kane and Bill Finger directly cite The Shadow as the primary inspiration for Batman. The dark hero, the secret identity, the urban war on crime — all of modern caped vigilantism traces back to a cloaked figure who first spoke from a radio in 1930.</div>
+        </div>
+        <div class="t-dot"><div class="t-dot-inner"></div></div>
+        <div class="t-empty"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- LEGACY -->
+<section id="legacy">
+  <div class="container">
+    <div class="section-label">Chapter 07</div>
+    <div class="section-title">The Legacy</div>
+
+    <div class="legacy-grid">
+
+      <div class="legacy-item">
+        <div class="legacy-icon">🦇</div>
+        <div class="legacy-year">1939</div>
+        <h4>Father of Batman</h4>
+        <p>Bill Finger openly stated that Batman was directly inspired by The Shadow. The first Batman story in Detective Comics #27 was even adapted from a Shadow novel. Without The Shadow, no Batman.</p>
+      </div>
+
+      <div class="legacy-item">
+        <div class="legacy-icon">📚</div>
+        <div class="legacy-year">282</div>
+        <h4>The Pulp Empire</h4>
+        <p>Between 1931 and 1949, Walter B. Gibson wrote 282 Shadow novels — averaging two per month for nearly two decades. Among the most prolific runs in American pulp fiction history.</p>
+      </div>
+
+      <div class="legacy-item">
+        <div class="legacy-icon">🎬</div>
+        <div class="legacy-year">1940s</div>
+        <h4>Film Serials & Movies</h4>
+        <p>Multiple Hollywood adaptations — film serials, B-movies, and feature films through the 1940s brought The Shadow to theaters, though none captured the radio show's atmosphere.</p>
+      </div>
+
+      <div class="legacy-item">
+        <div class="legacy-icon">🎭</div>
+        <div class="legacy-year">1994</div>
+        <h4>Alec Baldwin Reboot</h4>
+        <p>The Russell Mulcahy film. A cult favorite among pulp fans, featuring stunning art deco production design and a faithful take on the character's mystical origins in Tibet.</p>
+      </div>
+
+      <div class="legacy-item">
+        <div class="legacy-icon">📖</div>
+        <div class="legacy-year">ONGOING</div>
+        <h4>Comic Book Continuations</h4>
+        <p>DC Comics, Dynamite Entertainment, and others have kept The Shadow active in comics for decades. Howard Chaykin, Mike Kaluta, and others have produced acclaimed runs.</p>
+      </div>
+
+      <div class="legacy-item">
+        <div class="legacy-icon">👻</div>
+        <div class="legacy-year">FOREVER</div>
+        <h4>The Laugh Echoes</h4>
+        <p>"Who knows what evil lurks in the hearts of men?" remains one of the most recognizable opening lines in American media. The Shadow's laugh is the sound of pulp itself.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <span class="footer-logo">The Shadow</span>
+    <div class="footer-sub">THE INVISIBLE AVENGER · JULY 31, 1930 — PRESENT</div>
+    <div class="footer-links">
+      <a href="#about">ORIGIN</a>
+      <a href="#powers">POWERS</a>
+      <a href="#rogues">FOES</a>
+      <a href="#agents">AGENTS</a>
+      <a href="#radio">RADIO</a>
+      <a href="#timeline">HISTORY</a>
+      <a href="#legacy">LEGACY</a>
+    </div>
+    <div class="footer-copy">
+      A tribute to Walter B. Gibson (1897–1985), Orson Welles, and the immortal cloaked vigilante they shaped.<br>
+      The Shadow is a trademark of Condé Nast and Advance Magazine Publishers. This is a fan tribute page.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── TIMELINE OBSERVER ──
+  const timelineEntries = document.querySelectorAll('.t-entry');
+  const timelineObs = new IntersectionObserver((els) => {
+    els.forEach((el, i) => {
+      if (el.isIntersecting) {
+        setTimeout(() => el.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.15 });
+  timelineEntries.forEach(e => timelineObs.observe(e));
+
+  // ── SMOOTH SCROLL ──
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // ── RADIO PLAYER ──
+  // Add Shadow MP3s to an `audio/` folder and list them here.
+  // Tons of public-domain episodes on archive.org — search "The Shadow OTR".
+  const episodes = [
+    { file: "1937_09_26_Deathhouse_Rescue.mp3",          title: "DEATH HOUSE RESCUE",          date: "SEP 26, 1937 · WELLES DEBUT" },
+    { file: "1937_10_17_Murder_By_the_Dead.mp3",         title: "MURDER BY THE DEAD",          date: "OCT 17, 1937" },
+    { file: "1937_10_24_The_Temple_Bells_of_Neban.mp3",  title: "THE TEMPLE BELLS OF NEBAN",   date: "OCT 24, 1937" },
+    { file: "1937_10_31_The_Three_Ghosts.mp3",           title: "THE THREE GHOSTS",            date: "OCT 31, 1937 · HALLOWEEN" },
+    { file: "1937_11_28_Circle_of_Death.mp3",            title: "CIRCLE OF DEATH",             date: "NOV 28, 1937" },
+    { file: "1938_01_09_League_of_Terror.mp3",           title: "LEAGUE OF TERROR",            date: "JAN 9, 1938" },
+    { file: "1938_01_16_Sabotage.mp3",                   title: "SABOTAGE",                    date: "JAN 16, 1938" },
+    { file: "1938_01_23_Society_of_the_Living_Dead.mp3", title: "SOCIETY OF THE LIVING DEAD",  date: "JAN 23, 1938" },
+    { file: "1941_03_09_Murder_Underground.mp3",         title: "MURDER UNDERGROUND",          date: "MAR 9, 1941" },
+    { file: "1945_01_21_Out_of_this_World.mp3",          title: "OUT OF THIS WORLD",           date: "JAN 21, 1945" },
+    { file: "Air_Freight_Fracas.mp3",                    title: "AIR FREIGHT FRACAS",          date: "CIRCA 1940s" },
+    { file: "Case_Of_The_Burning_Skull.mp3",             title: "THE CASE OF THE BURNING SKULL", date: "CIRCA 1940s" }
+  ];
+
+  const radioPlayer = document.getElementById('radioPlayer');
+  const dtAudio = document.getElementById('dtAudio');
+  const tuneNeedle = document.getElementById('tuneNeedle');
+  const onAirGlow = document.getElementById('onAirGlow');
+  const radioStatus = document.getElementById('radioStatus');
+  const speakerLines = document.getElementById('speakerLines');
+  const episodeTitle = document.getElementById('episodeTitle');
+  const episodeDate = document.getElementById('episodeDate');
+  const episodeCounter = document.getElementById('episodeCounter');
+  const episodePicker = document.getElementById('episodePicker');
+  const tuneKnob = document.getElementById('tuneKnob');
+  const bandKnob = document.getElementById('bandKnob');
+
+  let currentEp = 0;
+  let isPlaying = false;
+  let radioPulse = null;
+  let speakerWiggle = null;
+
+  if (episodes.length === 0) {
+    radioStatus.textContent = '◆ AWAITING BROADCAST ◆';
+    episodeTitle.textContent = 'NO EPISODES LOADED';
+    episodeDate.textContent = 'ADD MP3s TO /audio/ FOLDER';
+  } else {
+    episodes.forEach((ep, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = `EP ${String(i + 1).padStart(2, '0')} · ${ep.title}`;
+      episodePicker.appendChild(opt);
+    });
+    loadEpisode(0);
+  }
+
+  function loadEpisode(index, autoplay = false) {
+    if (episodes.length === 0) return;
+    currentEp = (index + episodes.length) % episodes.length;
+    const ep = episodes[currentEp];
+    dtAudio.src = `audio/${ep.file}`;
+    episodeTitle.textContent = `EP ${String(currentEp + 1).padStart(2, '0')} · ${ep.title}`;
+    episodeDate.textContent = `${ep.date} · MUTUAL BROADCASTING`;
+    episodeCounter.textContent = `${String(currentEp + 1).padStart(2, '0')} / ${String(episodes.length).padStart(2, '0')}`;
+    episodePicker.value = currentEp;
+    tuneNeedle.setAttribute('x1', 80);
+    tuneNeedle.setAttribute('x2', 80);
+    if (autoplay) {
+      dtAudio.play().catch(err => console.error('Autoplay blocked:', err));
+    }
+  }
+
+  radioPlayer.addEventListener('click', (e) => {
+    if (e.target.closest('#tuneKnob') || e.target.closest('#bandKnob')) return;
+    if (episodes.length === 0) return;
+    if (isPlaying) {
+      dtAudio.pause();
+    } else {
+      dtAudio.play().catch(err => {
+        radioStatus.textContent = '◆ BROADCAST UNAVAILABLE ◆';
+        console.error('Audio failed:', err);
+      });
+    }
+  });
+
+  tuneKnob.addEventListener('click', (e) => {
+    e.stopPropagation();
+    loadEpisode(currentEp + 1, isPlaying);
+  });
+
+  bandKnob.addEventListener('click', (e) => {
+    e.stopPropagation();
+    loadEpisode(currentEp - 1, isPlaying);
+  });
+
+  episodePicker.addEventListener('change', (e) => {
+    loadEpisode(parseInt(e.target.value, 10), isPlaying);
+  });
+
+  dtAudio.addEventListener('play', () => {
+    isPlaying = true;
+    radioStatus.textContent = '◆ NOW BROADCASTING ◆';
+    radioStatus.style.opacity = '1';
+    onAirGlow.style.transition = 'opacity 1s';
+    let pulse = 0;
+    radioPulse = setInterval(() => {
+      pulse = (pulse + 1) % 2;
+      onAirGlow.setAttribute('opacity', pulse ? '0.9' : '0.2');
+    }, 600);
+    speakerWiggle = setInterval(() => {
+      speakerLines.setAttribute('opacity', 0.3 + Math.random() * 0.5);
+    }, 120);
+  });
+
+  dtAudio.addEventListener('pause', () => {
+    isPlaying = false;
+    radioStatus.textContent = '◆ TUNE IN TO THE SHADOW ◆';
+    if (radioPulse) clearInterval(radioPulse);
+    if (speakerWiggle) clearInterval(speakerWiggle);
+    onAirGlow.setAttribute('opacity', '0');
+    speakerLines.setAttribute('opacity', '0.6');
+  });
+
+  dtAudio.addEventListener('timeupdate', () => {
+    if (dtAudio.duration) {
+      const progress = dtAudio.currentTime / dtAudio.duration;
+      const x = 80 + progress * 160;
+      tuneNeedle.setAttribute('x1', x);
+      tuneNeedle.setAttribute('x2', x);
+    }
+  });
+
+  dtAudio.addEventListener('ended', () => {
+    loadEpisode(currentEp + 1, true);
+  });
+</script>
+
+</body>
+</html>
